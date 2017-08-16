@@ -1,0 +1,55 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="60dp"
+	android:minHeight="60dp"
+	android:paddingLeft="@dimen/padding_medium" >
+
+	<!-- 左 -->
+	<RelativeLayout
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="10" >
+		<TextView
+			android:id="@+id/lonn_adapter_stringmsg_tv_title"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true"
+			android:singleLine="true"
+			android:textSize="18sp"
+			android:text="xxxx" />
+		
+		<TextView
+			android:id="@+id/lonn_adapter_stringmsg_tv_msg"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:layout_toRightOf="@+id/lonn_adapter_stringmsg_tv_title"
+			android:layout_marginLeft="@dimen/padding_small"
+			android:gravity="right"
+			android:singleLine="true"
+			android:textSize="12sp"
+			android:text="xxxx" />
+
+	</RelativeLayout>
+
+	<!-- 右 -->
+	<RelativeLayout
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1">
+
+		<ImageView
+		    android:id="@+id/lonn_adapter_stringmsg_iv_arrow"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerInParent="true"
+			android:background="@drawable/lonn_ic_arrow_nextpage" />
+
+	</RelativeLayout>
+
+
+</LinearLayout>

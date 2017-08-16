@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TitleView">
+        <attr name="lonnTVTheme">
+            <flag name="left" value="1" />
+            <flag name="middle" value="2" />
+            <flag name="right" value="3" />
+            <flag name="left_middle" value="4" />
+            <flag name="left_middle_right" value="5" />
+            <flag name="left_middle_right2" value="6" />
+            <flag name="middle_right" value="7" />
+            <flag name="middle_right2" value="8" />
+        </attr>
+        <attr name="lonnTVLeft1Type">
+            <flag name="image" value="0" />
+            <flag name="button" value="1" />
+            <flag name="text" value="2" />
+        </attr>
+        <attr name="lonnTVLeft2Type">
+            <flag name="image" value="0" />
+            <flag name="button" value="1" />
+            <flag name="text" value="2" />
+        </attr>
+        <attr name="lonnTVRight1Type">
+            <flag name="image" value="0" />
+            <flag name="button" value="1" />
+            <flag name="text" value="2" />
+        </attr>
+        <attr name="lonnTVRight2Type">
+            <flag name="image" value="0" />
+            <flag name="button" value="1" />
+            <flag name="text" value="2" />
+        </attr>
+        <attr name="lonnTVLeft1Background" format="reference|color" />
+        <attr name="lonnTVLeft2Background" format="reference|color" />
+        <attr name="lonnTVRight1Background" format="reference|color" />
+        <attr name="lonnTVRight2Background" format="reference|color" />
+    </declare-styleable>
+
+</resources>
