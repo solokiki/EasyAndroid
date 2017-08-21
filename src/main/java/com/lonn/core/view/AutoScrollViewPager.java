@@ -42,11 +42,14 @@ public class AutoScrollViewPager extends ViewPager{
 		}
 		
 		isAutoScroll = true;
+
+        if(timer != null){
+            timer.cancel();
+            timer = null;
+        }
 		
-		if(timer == null){
-			timer = new Timer();
-		}
-		
+        timer = new Timer();
+
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
