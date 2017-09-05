@@ -76,10 +76,12 @@ public class IndicatorViewPager extends RelativeLayout{
 	 * @date 2016年12月22日 下午6:17:18
 	 */
 	private void initDots(){
-		if(adapter == null){
-			return;
-		}
-		
+        dotLayout.removeAllViews();
+
+        if(adapter == null){
+            return;
+        }
+
 		LinearLayout.LayoutParams dotParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		dotParams.leftMargin = 10;
 		
