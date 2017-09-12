@@ -340,6 +340,30 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
         }
     }
 
+    public void setLeft1TextColor(int color) {
+        if (left1 instanceof TextView) {
+            ((TextView) left1).setTextColor(color);
+        }
+    }
+
+    public void setLeft2TextColor(int color) {
+        if (left2 instanceof TextView) {
+            ((TextView) left2).setTextColor(color);
+        }
+    }
+
+    public void setLeft1TextSize(float size) {
+        if (left1 instanceof TextView) {
+            ((TextView) left1).setTextSize(size);
+        }
+    }
+
+    public void setLeft2TextSize(float size) {
+        if (left2 instanceof TextView) {
+            ((TextView) left2).setTextSize(size);
+        }
+    }
+
     /**
      * 设置左侧按钮背景
      */
