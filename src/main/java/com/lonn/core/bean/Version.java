@@ -19,7 +19,7 @@ public class Version extends BaseEntity{
 	// 是否需要强制更新
 	private int mustUpdate;
 	// 最低支持的版本号
-	private int minSupportVersion;
+	private int minVersion;
 
 	public String getVersionName() {
 		return versionName;
@@ -61,11 +61,11 @@ public class Version extends BaseEntity{
 		this.mustUpdate = mustUpdate;
 	}
 
-	public int getMinSupportVersion() {
-		return minSupportVersion;
+	public int getMinVersion() {
+		return minVersion;
 	}
 
-	public void setMinSupportVersion(int minSupportVersion) {
-		this.minSupportVersion = minSupportVersion;
+	public void setMinVersion(int minVersion) {
+		this.minVersion = minVersion;
 	}
 }
