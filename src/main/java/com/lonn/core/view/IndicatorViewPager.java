@@ -15,7 +15,7 @@ import com.lonn.core.R;
 
 public class IndicatorViewPager extends RelativeLayout {
 
-    public static final int DEFAULT_ITEM = 5000;
+    public static final int DEFAULT_ITEM = 1000;
 
     private Context mContext;
 
@@ -69,9 +69,10 @@ public class IndicatorViewPager extends RelativeLayout {
     public void setAdapter(PagerAdapter adapter, int realSize) {
         this.adapter = adapter;
         this.realSize = realSize;
+        currentIndex = realSize * DEFAULT_ITEM;
         if (viewPager != null) {
             viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(DEFAULT_ITEM);
+            viewPager.setCurrentItem(currentIndex);
         }
         initDots();
     }
@@ -104,7 +105,7 @@ public class IndicatorViewPager extends RelativeLayout {
             dotLayout.addView(iv);
         }
 
-        setDot(DEFAULT_ITEM);
+        setDot(currentIndex);
     }
 
     /**
