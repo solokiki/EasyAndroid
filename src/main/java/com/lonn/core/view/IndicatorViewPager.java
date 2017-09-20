@@ -15,13 +15,12 @@ import com.lonn.core.R;
 
 public class IndicatorViewPager extends RelativeLayout {
 
-    public static final int DEFAULT_ITEM = 1000;
+    public static final int DEFAULT_ITEM = 1;
 
     private Context mContext;
 
     private AutoScrollViewPager viewPager;
     private PagerAdapter adapter;
-    private int realSize;
 
     private LinearLayout dotLayout;
     private ImageView[] dots;
@@ -66,10 +65,9 @@ public class IndicatorViewPager extends RelativeLayout {
         setOnPageChangeListener(onPageChangeListener);
     }
 
-    public void setAdapter(PagerAdapter adapter, int realSize) {
+    public void setAdapter(PagerAdapter adapter) {
         this.adapter = adapter;
-        this.realSize = realSize;
-        currentIndex = realSize * DEFAULT_ITEM;
+        currentIndex = DEFAULT_ITEM;
         if (viewPager != null) {
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(currentIndex);
@@ -79,8 +77,6 @@ public class IndicatorViewPager extends RelativeLayout {
 
     /**
      * @Description: 初始化显示小圆点。当小圆点数量小于2时，不显示小圆点。
-     * @author lonn chen
-     * @date 2016年12月22日 下午6:17:18
      */
     private void initDots() {
         dotLayout.removeAllViews();
@@ -92,11 +88,12 @@ public class IndicatorViewPager extends RelativeLayout {
         LinearLayout.LayoutParams dotParams = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         dotParams.leftMargin = 10;
 
-        if (realSize < 2) {
+        int count = adapter.getCount() - 2;
+        if (count < 2) {
             return;
         }
 
-        dots = new ImageView[realSize];
+        dots = new ImageView[count];
         for (int i = 0; i < dots.length; i++) {
             ImageView iv = new ImageView(mContext);
             iv.setImageResource(resNormal);
@@ -105,21 +102,19 @@ public class IndicatorViewPager extends RelativeLayout {
             dotLayout.addView(iv);
         }
 
-        setDot(currentIndex);
+        setDot();
     }
 
     /**
      * @param color 十六进制颜色
      * @Description: 设置小圆点区域背景颜色。当小圆点数量小于2时，不显示小圆点，所以此时设置无效。
-     * @author lonn chen
-     * @date 2016年12月22日 下午6:09:49
      */
     public void setDotLayoutBackgroundColor(String color) {
         if (dotLayout == null || adapter == null || TextUtils.isEmpty(color)) {
             return;
         }
 
-        if (realSize < 2) {
+        if (adapter.getCount() < 2) {
             return;
         }
 
@@ -134,7 +129,7 @@ public class IndicatorViewPager extends RelativeLayout {
             return;
         }
 
-        if (realSize < 2) {
+        if (adapter.getCount() < 2) {
             return;
         }
 
@@ -149,7 +144,7 @@ public class IndicatorViewPager extends RelativeLayout {
             return;
         }
 
-        if (realSize < 2) {
+        if (adapter.getCount() < 2) {
             return;
         }
 
@@ -164,7 +159,7 @@ public class IndicatorViewPager extends RelativeLayout {
     public void setDotImage(int resNormal, int resCurrent) {
         this.resNormal = resNormal;
         this.resCurrent = resCurrent;
-        setDot(currentIndex);
+        setDot();
     }
 
     public void startAutoScroll(long delay) {
@@ -185,20 +180,30 @@ public class IndicatorViewPager extends RelativeLayout {
         }
     }
 
-    private void setDot(int position) {
+    private void setDot() {
         if (dots == null || dots.length == 0) {
             return;
         }
         resetDots();
 
-        dots[position%realSize].setImageResource(resCurrent);
+        int index = 0;
+        if (currentIndex == 0) {
+            index = dots.length - 1;
+        } else if (currentIndex == adapter.getCount() - 1) {
+            index = 0;
+        }else{
+            index = currentIndex - 1;
+        }
+
+        if(index >= 0 && index < dots.length){
+            dots[index].setImageResource(resCurrent);
+        }
+
 
     }
 
     /**
      * @Description: 重置所有原点，显示默认未选中状态。
-     * @author lonn chen
-     * @date 2016年12月22日 下午5:47:13
      */
     private void resetDots() {
         for (ImageView iv : dots) {
@@ -220,7 +225,8 @@ public class IndicatorViewPager extends RelativeLayout {
         @Override
         public void onPageSelected(int arg0) {
             currentIndex = arg0;
-            setDot(arg0);
+            setDot();
+
             if (onPagerSelectListener != null) {
                 onPagerSelectListener.onPageSelect(arg0);
             }
@@ -229,19 +235,30 @@ public class IndicatorViewPager extends RelativeLayout {
 
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
-            // TODO Auto-generated method stub
 
         }
 
         @Override
-        public void onPageScrollStateChanged(int arg0) {
-            // TODO Auto-generated method stub
+        public void onPageScrollStateChanged(int state) {
+//        若viewpager滑动未停止，直接返回
+//            if (state != ViewPager.SCROLL_STATE_IDLE) return;
+//        若当前为第一张，设置页面为倒数第二张
+            if (currentIndex == 0) {
+                viewPager.setCurrentItem(adapter.getCount() - 2,false);
+            } else if (currentIndex == adapter.getCount() - 1) {
+//        若当前为倒数第一张，设置页面为第二张
+                viewPager.setCurrentItem(1, false);
+            }
 
         }
     };
 
     public interface OnPageSelectListener {
         void onPageSelect(int position);
+    }
+
+    public AutoScrollViewPager getViewPager() {
+        return viewPager;
     }
 
 }

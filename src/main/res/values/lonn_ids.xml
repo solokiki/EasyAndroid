@@ -4,4 +4,7 @@
     <item name="lonn_titleView_left2_id" type="id">50111</item>
     <item name="lonn_titleView_right1_id" type="id">50112</item>
     <item name="lonn_titleView_right2_id" type="id">50113</item>
+
+    <item name="lonn_common_tag" type="id">10500</item>
+
 </resources>
