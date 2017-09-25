@@ -37,7 +37,6 @@ public class AutoScrollViewPager extends ViewPager{
 	
 	public void startAutoScroll(){
 		if(getAdapter() == null || getAdapter().getCount() <= 0){
-			setBackgroundResource(R.drawable.lonn_pic_default_small);
 			return;
 		}
 		
