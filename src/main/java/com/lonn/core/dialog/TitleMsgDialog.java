@@ -151,7 +151,15 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 			ll_top.setVisibility(View.VISIBLE);
 		}
 	}
-	
+
+	public void setTitleTextSize(float size){
+        tv_title.setTextSize(size);
+	}
+
+	public void setTtitleTextColor(int color){
+        tv_title.setTextColor(color);
+    }
+
 	public void setMessage(String s_msg){
 		if(TextUtils.isEmpty(s_msg)){
 			sv_middle.setVisibility(View.GONE);
@@ -170,6 +178,14 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 			sv_middle.setVisibility(View.VISIBLE);
 		}
 	}
+
+    public void setMessageTextSize(float size){
+        tv_msg.setTextSize(size);
+    }
+
+    public void setMessageTextColor(int color){
+        tv_msg.setTextColor(color);
+    }
 	
 	public void setLeftText(String s_left){
 		if(TextUtils.isEmpty(s_left)){
@@ -189,6 +205,14 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 			bt_left.setVisibility(View.VISIBLE);
 		}
 	}
+
+    public void setLeftTextSize(float size){
+        bt_left.setTextSize(size);
+    }
+
+    public void setLeftTextColor(int color){
+        bt_left.setTextColor(color);
+    }
 	
 	public void setRightText(String s_right){
 		if(TextUtils.isEmpty(s_right)){
@@ -208,6 +232,14 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 			bt_right.setVisibility(View.VISIBLE);
 		}
 	}
+
+    public void setRightTextSize(float size){
+        bt_right.setTextSize(size);
+    }
+
+    public void setRightTextColor(int color){
+        bt_right.setTextColor(color);
+    }
 	
 
 }
