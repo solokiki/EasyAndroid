@@ -11,6 +11,8 @@ import android.widget.ScrollView;
  */
 public class MyScrollView extends ScrollView {
 
+	private ScrollViewListener scrollViewListener = null;
+
 	public MyScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		// TODO Auto-generated constructor stub
@@ -59,5 +61,22 @@ public class MyScrollView extends ScrollView {
     	
     	return super.onInterceptTouchEvent(ev);
     }
+
+	public void setScrollViewListener(ScrollViewListener scrollViewListener) {
+		this.scrollViewListener = scrollViewListener;
+	}
+
+	@Override
+	protected void onScrollChanged(int x, int y, int oldx, int oldy) {
+		super.onScrollChanged(x, y, oldx, oldy);
+		if (scrollViewListener != null) {
+			scrollViewListener.onScrollChanged(this, x, y, oldx, oldy);
+		}
+	}
+
+	public interface ScrollViewListener {
+		void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy);
+
+	}
 	
 }
