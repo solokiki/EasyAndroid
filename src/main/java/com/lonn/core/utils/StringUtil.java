@@ -108,8 +108,8 @@ public class StringUtil {
 	}
 	
 	
-	// 手机号正则
-	public static final String REGEX_PHONE = "^1[3578]\\d{9}$";
+	// 手机号正则，确保1打头，后面10位数字就行
+	public static final String REGEX_PHONE = "^1\\d{10}$";
 	// 数字正则，不分浮点或者整数
 	public static final String REGEX_NUMERIC = "^[0-9]*(.[0-9]*)?$";
 	/**
