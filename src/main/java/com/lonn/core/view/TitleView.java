@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.lonn.core.R;
 
@@ -169,26 +170,18 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
                 break;
         }
 
+        // 标题文字靠左的相关设置
         if(leftTitle){
             middleLayout.setGravity(Gravity.CENTER_VERTICAL);
-
             if(leftLayout1.getVisibility() == View.INVISIBLE){
                 leftLayout1.setVisibility(View.GONE);
             }
-
             if(leftLayout2.getVisibility() == View.INVISIBLE){
                 leftLayout2.setVisibility(View.GONE);
             }
-
-        }else{
-            middleLayout.setGravity(Gravity.CENTER);
-
-            if(leftLayout1.getVisibility() == View.GONE){
-                leftLayout1.setVisibility(View.INVISIBLE);
-            }
-
-            if(leftLayout2.getVisibility() == View.GONE){
-                leftLayout2.setVisibility(View.INVISIBLE);
+            if(leftLayout1.getVisibility() == View.GONE && leftLayout2.getVisibility() == View.GONE){
+                RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) middleLayout.getLayoutParams();
+                lp.setMargins(24,0,0,0);
             }
         }
     }
