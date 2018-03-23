@@ -47,7 +47,8 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
     // 自定义属性
     private int theme;
 
-    private boolean leftTitle;
+    private boolean isTitleLeft;
+    private float titleMarginLeft;
 
     private int left1_type;
     private int left2_type;
@@ -70,7 +71,8 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
         theme = array.getInt(R.styleable.TitleView_lonnTVTheme, THEME_MIDDLE);
-        leftTitle = array.getBoolean(R.styleable.TitleView_lonnTVLeftTitle, THEME_LEFT_TITLE);
+        isTitleLeft = array.getBoolean(R.styleable.TitleView_lonnTVTitleLeft, THEME_LEFT_TITLE);
+        titleMarginLeft = array.getDimension(R.styleable.TitleView_lonnTVTitleMarginLeft, 0);
         left1_type = array.getInt(R.styleable.TitleView_lonnTVLeft1Type, TYPE_IMAGE);
         left2_type = array.getInt(R.styleable.TitleView_lonnTVLeft2Type, TYPE_IMAGE);
         right1_type = array.getInt(R.styleable.TitleView_lonnTVRight1Type, TYPE_IMAGE);
@@ -171,7 +173,7 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
         }
 
         // 标题文字靠左的相关设置
-        if(leftTitle){
+        if(isTitleLeft){
             middleLayout.setGravity(Gravity.CENTER_VERTICAL);
             if(leftLayout1.getVisibility() == View.INVISIBLE){
                 leftLayout1.setVisibility(View.GONE);
@@ -181,7 +183,7 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
             }
             if(leftLayout1.getVisibility() == View.GONE && leftLayout2.getVisibility() == View.GONE){
                 RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) middleLayout.getLayoutParams();
-                lp.setMargins(24,0,0,0);
+                lp.setMargins((int) titleMarginLeft,0,0,0);
             }
         }
     }

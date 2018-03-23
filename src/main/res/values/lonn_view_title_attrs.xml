@@ -36,7 +36,8 @@
         <attr name="lonnTVLeft2Background" format="reference|color" />
         <attr name="lonnTVRight1Background" format="reference|color" />
         <attr name="lonnTVRight2Background" format="reference|color" />
-        <attr name="lonnTVLeftTitle" format="boolean" />
+        <attr name="lonnTVTitleLeft" format="boolean" />
+        <attr name="lonnTVTitleMarginLeft" format="dimension" />
     </declare-styleable>
 
 </resources>
