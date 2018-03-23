@@ -24,6 +24,7 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
     public static final int THEME_MIDDLE_RIGHT = 7;
     public static final int THEME_MIDDLE_RIGHT2 = 8;
 
+    public static final boolean THEME_LEFT_TITLE = false;
 
     // 左右按钮类型
     public static final int TYPE_IMAGE = 0;
@@ -44,6 +45,8 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
 
     // 自定义属性
     private int theme;
+
+    private boolean leftTitle;
 
     private int left1_type;
     private int left2_type;
@@ -66,6 +69,7 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.TitleView);
         theme = array.getInt(R.styleable.TitleView_lonnTVTheme, THEME_MIDDLE);
+        leftTitle = array.getBoolean(R.styleable.TitleView_lonnTVLeftTitle, THEME_LEFT_TITLE);
         left1_type = array.getInt(R.styleable.TitleView_lonnTVLeft1Type, TYPE_IMAGE);
         left2_type = array.getInt(R.styleable.TitleView_lonnTVLeft2Type, TYPE_IMAGE);
         right1_type = array.getInt(R.styleable.TitleView_lonnTVRight1Type, TYPE_IMAGE);
@@ -163,6 +167,29 @@ public class TitleView extends LinearLayout implements View.OnClickListener {
                 rightLayout1.setVisibility(View.VISIBLE);
                 rightLayout2.setVisibility(View.VISIBLE);
                 break;
+        }
+
+        if(leftTitle){
+            middleLayout.setGravity(Gravity.CENTER_VERTICAL);
+
+            if(leftLayout1.getVisibility() == View.INVISIBLE){
+                leftLayout1.setVisibility(View.GONE);
+            }
+
+            if(leftLayout2.getVisibility() == View.INVISIBLE){
+                leftLayout2.setVisibility(View.GONE);
+            }
+
+        }else{
+            middleLayout.setGravity(Gravity.CENTER);
+
+            if(leftLayout1.getVisibility() == View.GONE){
+                leftLayout1.setVisibility(View.INVISIBLE);
+            }
+
+            if(leftLayout2.getVisibility() == View.GONE){
+                leftLayout2.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
