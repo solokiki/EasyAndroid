@@ -108,4 +108,8 @@ public class SelectDialog extends Dialog implements AdapterView.OnItemClickListe
             dismiss();
         }
     }
+
+    public View getView(int resId){
+        return findViewById(resId);
+    }
 }

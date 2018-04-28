@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -23,7 +22,10 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 	public static final int TYPE_CONFIRM = 2;    // 确定
 	public static final int DISMISS_NORMAL = 0;  // 点击确定或者取消，对话框必定消失
 	public static final int DISMISS_STUBBORN = 1;// 点击确定或者取消，对话框都不会消失
-	
+
+    private static final int PADDING_LARGE = 38;
+    private static final int PADDING_MEDIUM = 28;
+
 	private LinearLayout ll_top;
 	private ScrollView sv_middle;
 	
@@ -31,12 +33,11 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 	private TextView tv_msg;
 	private Button bt_left;
 	private Button bt_right;
-	private ImageView iv_line;
+	private View iv_line;
 	
 	private int type, dismiss;
 	private Callback<Boolean> callback = null;
-	private int width, height;
-	
+
 	public TitleMsgDialog(Context context, int type, Callback<Boolean> cb) {
 		super(context, R.style.dialog);
 		this.type = type;
@@ -50,7 +51,7 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		this.callback = cb;
 		this.dismiss = dismiss;
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -66,8 +67,8 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		Window dialogWindow = getWindow();
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		dialogWindow.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-		height = displayMetrics.heightPixels;
-		width = displayMetrics.widthPixels;
+		int height = displayMetrics.heightPixels;
+		int width = displayMetrics.widthPixels;
 		
 		
 		WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
@@ -79,15 +80,17 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 	
 	private void initView() {
 		ll_top = (LinearLayout) findViewById(R.id.lonn_dialog_titlemsg_ll_top);
+        ll_top.setPadding(PADDING_MEDIUM, PADDING_LARGE,PADDING_MEDIUM, PADDING_LARGE);
 		ll_top.setVisibility(View.GONE);
 		sv_middle = (ScrollView) findViewById(R.id.lonn_dialog_titlemsg_sv_middle);
+        sv_middle.setPadding(PADDING_MEDIUM, PADDING_LARGE,PADDING_MEDIUM, PADDING_LARGE);
 		sv_middle.setVisibility(View.GONE);
 		
 		tv_title = (TextView) findViewById(R.id.lonn_dialog_titlemsg_tv_title);
 		tv_msg = (TextView) findViewById(R.id.lonn_dialog_titlemsg_tv_msg);
 		bt_left = (Button) findViewById(R.id.lonn_dialog_titlemsg_bt_left);
 		bt_right = (Button) findViewById(R.id.lonn_dialog_titlemsg_bt_right);
-		iv_line = (ImageView) findViewById(R.id.lonn_dialog_titlemsg_iv_line);
+		iv_line = findViewById(R.id.lonn_dialog_titlemsg_iv_line);
 	}
 	
 	private void initType() {
@@ -132,25 +135,25 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		}
 
 	}
-	
-	public void setTitle(String s_title){
-		if(TextUtils.isEmpty(s_title)){
-			ll_top.setVisibility(View.GONE);
-		}else{
-			tv_title.setText(s_title);
-			ll_top.setVisibility(View.VISIBLE);
-		}
-	}
-	
-	public void setTitle(int resid){
-		String s = getContext().getResources().getString(resid);
-		if(TextUtils.isEmpty(s)){
-			ll_top.setVisibility(View.GONE);
-		}else{
-			tv_title.setText(s);
-			ll_top.setVisibility(View.VISIBLE);
-		}
-	}
+
+//	public void setTitle(String s_title){
+//		if(TextUtils.isEmpty(s_title)){
+//			ll_top.setVisibility(View.GONE);
+//		}else{
+//			tv_title.setText(s_title);
+//			ll_top.setVisibility(View.VISIBLE);
+//		}
+//	}
+//
+//	public void setTitle(int resid){
+//		String s = getContext().getResources().getString(resid);
+//		if(TextUtils.isEmpty(s)){
+//			ll_top.setVisibility(View.GONE);
+//		}else{
+//			tv_title.setText(s);
+//			ll_top.setVisibility(View.VISIBLE);
+//		}
+//	}
 
 	public void setTitleTextSize(float size){
         tv_title.setTextSize(size);
@@ -160,24 +163,65 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
         tv_title.setTextColor(color);
     }
 
-	public void setMessage(String s_msg){
-		if(TextUtils.isEmpty(s_msg)){
+//	public void setMessage(String s_msg){
+//		if(TextUtils.isEmpty(s_msg)){
+//			sv_middle.setVisibility(View.GONE);
+//		}else{
+//			tv_msg.setText(s_msg);
+//			sv_middle.setVisibility(View.VISIBLE);
+//		}
+//	}
+//
+//	public void setMessage(int resid){
+//		String s = getContext().getResources().getString(resid);
+//		if(TextUtils.isEmpty(s)){
+//			sv_middle.setVisibility(View.GONE);
+//		}else{
+//			tv_msg.setText(s);
+//			sv_middle.setVisibility(View.VISIBLE);
+//		}
+//	}
+
+	public void setText(int titleRes, int msgRes){
+        String title = null;
+        String msg = null;
+	    try {
+            title = getContext().getResources().getString(titleRes);
+	    } catch (Exception e) {
+            e.printStackTrace();
+	    }
+        try {
+            msg = getContext().getResources().getString(msgRes);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(!TextUtils.isEmpty(title) || !TextUtils.isEmpty(msg)){
+            setText(title, msg);
+        }else{
+            throw new RuntimeException("title and msg can not both null,please check your resource id.");
+        }
+	}
+
+	public void setText(String title, String msg){
+		if(TextUtils.isEmpty(title)){
+			ll_top.setVisibility(View.GONE);
+		}else{
+			tv_title.setText(title);
+			ll_top.setVisibility(View.VISIBLE);
+            sv_middle.setPadding(PADDING_MEDIUM,0,PADDING_MEDIUM, PADDING_MEDIUM);
+		}
+
+		if(TextUtils.isEmpty(msg)){
 			sv_middle.setVisibility(View.GONE);
 		}else{
-			tv_msg.setText(s_msg);
+			tv_msg.setText(msg);
 			sv_middle.setVisibility(View.VISIBLE);
 		}
 	}
-	
-	public void setMessage(int resid){
-		String s = getContext().getResources().getString(resid);
-		if(TextUtils.isEmpty(s)){
-			sv_middle.setVisibility(View.GONE);
-		}else{
-			tv_msg.setText(s);
-			sv_middle.setVisibility(View.VISIBLE);
-		}
-	}
+
+	public View getView(int resId){
+        return findViewById(resId);
+    }
 
     public void setMessageTextSize(float size){
         tv_msg.setTextSize(size);
@@ -187,7 +231,7 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
         tv_msg.setTextColor(color);
     }
 	
-	public void setLeftText(String s_left){
+	public void setLeftButtonText(String s_left){
 		if(TextUtils.isEmpty(s_left)){
 			bt_left.setVisibility(View.GONE);
 		}else{
@@ -196,7 +240,7 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		}
 	}
 	
-	public void setLeftText(int resid){
+	public void setLeftButtonText(int resid){
 		String s = getContext().getResources().getString(resid);
 		if(TextUtils.isEmpty(s)){
 			bt_left.setVisibility(View.GONE);
@@ -206,15 +250,15 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		}
 	}
 
-    public void setLeftTextSize(float size){
+    public void setLeftButtonTextSize(float size){
         bt_left.setTextSize(size);
     }
 
-    public void setLeftTextColor(int color){
+    public void setLeftButtonTextColor(int color){
         bt_left.setTextColor(color);
     }
 	
-	public void setRightText(String s_right){
+	public void setRightButtonText(String s_right){
 		if(TextUtils.isEmpty(s_right)){
 			bt_right.setVisibility(View.GONE);
 		}else{
@@ -223,7 +267,7 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		}
 	}
 	
-	public void setRightText(int resid){
+	public void setRightButtonText(int resid){
 		String s = getContext().getResources().getString(resid);
 		if(TextUtils.isEmpty(s)){
 			bt_right.setVisibility(View.GONE);
@@ -233,13 +277,13 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		}
 	}
 
-    public void setRightTextSize(float size){
+    public void setRightButtonTextSize(float size){
         bt_right.setTextSize(size);
     }
 
-    public void setRightTextColor(int color){
+    public void setRightButtonTextColor(int color){
         bt_right.setTextColor(color);
     }
-	
+
 
 }
