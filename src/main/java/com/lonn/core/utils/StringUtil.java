@@ -109,9 +109,15 @@ public class StringUtil {
 	
 	
 	// 手机号正则，确保1打头，后面10位数字就行
-	public static final String REGEX_PHONE = "^1\\d{10}$";
+	public static final String REGEX_MOBILE_PHONE = "^1\\d{10}$";
 	// 数字正则，不分浮点或者整数
 	public static final String REGEX_NUMERIC = "^[0-9]*(.[0-9]*)?$";
+    // 电子邮箱
+    public static final String REGEX_EMAIL = "\\w*@\\w*(.\\w*){1,2}";
+    // 固定电话
+    public static final String REGEX_PHONE = "(0\\d{2,3}-)?\\d{7,8}";
+	// IP4地址
+    public static final String REGEX_IP4 = "((([0-1]?[0-9]?[0-9])|([2][0-4][0-9])|([2][5][0-5]))\\.){3}(([0-1]?[0-9]?[0-9])|([2][0-4][0-9])|([2][5][0-5]))";
 	/**
 	 * 检测匹配
 	 * @param regex
