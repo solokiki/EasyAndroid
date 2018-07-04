@@ -2,6 +2,7 @@ package com.lonn.core.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -69,11 +70,19 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 		dialogWindow.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 		int height = displayMetrics.heightPixels;
 		int width = displayMetrics.widthPixels;
-		
-		
+
 		WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
-//        p.height = (int) (height * 0.35); // 高度设置为屏幕的0.35
-        p.width = (int) (width * 0.9); // 宽度设置为屏幕的0.9
+
+		Configuration mConfiguration = getContext().getResources().getConfiguration();
+		int ori = mConfiguration.orientation; //获取屏幕方向
+		if (ori == Configuration.ORIENTATION_LANDSCAPE) {
+			//横屏
+			p.width = (int) (width * 0.35); // 宽度设置为屏幕的0.35
+		} else if (ori == Configuration.ORIENTATION_PORTRAIT) {
+			//竖屏
+			p.width = (int) (width * 0.9); // 宽度设置为屏幕的0.9
+		}
+
         dialogWindow.setAttributes(p);
 		
 	}
