@@ -1,22 +1,32 @@
 package com.lonn.core.utils;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class DoubleUtil {
 
     private static final int DEFAULT_SCALE = 2;
 
     /**
-     * 四舍五入
+     * 四舍五入，小数位不足补0
      * @param value 原始值
      * @param digits 小数点后几位
      * @return 四舍五入后的值
      */
     public static String formatToString(double value, int digits) {
-        NumberFormat nf = NumberFormat.getNumberInstance();
-        nf.setMaximumFractionDigits(digits);
-        return nf.format(value);
+        StringBuilder pattern = new StringBuilder("#,##0");
+
+        if(digits > 0){
+            pattern.append(".");
+
+            for(int i=digits; i>0; i--){
+                pattern.append("0");
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat(pattern.toString());
+        return df.format(value);
     }
 
     /**
@@ -30,7 +40,7 @@ public class DoubleUtil {
      */
     public static double formatToDouble(double value, int digits){
         BigDecimal b1 = new BigDecimal(Double.toString(value));
-        return b1.setScale(digits, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return b1.setScale(digits, RoundingMode.UP).doubleValue();
     }
 
     /**
