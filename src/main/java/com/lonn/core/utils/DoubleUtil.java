@@ -40,7 +40,7 @@ public class DoubleUtil {
      */
     public static double formatToDouble(double value, int digits){
         BigDecimal b1 = new BigDecimal(Double.toString(value));
-        return b1.setScale(digits, RoundingMode.UP).doubleValue();
+        return b1.setScale(digits, RoundingMode.HALF_UP).doubleValue();
     }
 
     /**
