@@ -191,6 +191,24 @@ public class TitleMsgDialog extends Dialog implements View.OnClickListener{
 //		}
 //	}
 
+	public void setMessage(int msgRes){
+		String msg = null;
+		try {
+			msg = getContext().getResources().getString(msgRes);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if(!TextUtils.isEmpty(msg)){
+			setText(null, msg);
+		}else{
+			throw new RuntimeException("title and msg can not both null,please check your resource id.");
+		}
+	}
+
+    public void setMessage(String msg){
+        setText(null, msg);
+    }
+
 	public void setText(int titleRes, int msgRes){
         String title = null;
         String msg = null;

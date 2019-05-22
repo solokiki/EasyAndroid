@@ -2,7 +2,6 @@ package com.lonn.core.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -14,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lonn.core.R;
+import com.lonn.core.adapter.BaseBannerAdapter;
 import com.lonn.core.utils.AppUtil;
 
 public class IndicatorViewPager extends RelativeLayout {
@@ -27,7 +27,7 @@ public class IndicatorViewPager extends RelativeLayout {
     private Context mContext;
 
     private AutoScrollViewPager viewPager;
-    private PagerAdapter adapter;
+    private BaseBannerAdapter adapter;
 
     private LinearLayout indicatorLayout;
     private ImageView[] dots;
@@ -76,7 +76,7 @@ public class IndicatorViewPager extends RelativeLayout {
         setOnPageChangeListener(onPageChangeListener);
     }
 
-    public void setAdapter(PagerAdapter adapter) {
+    public void setAdapter(BaseBannerAdapter adapter) {
         this.adapter = adapter;
         currentIndex = DEFAULT_ITEM;
         if (viewPager != null) {

@@ -9,8 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-import com.lonn.core.R;
-
 public class AutoScrollViewPager extends ViewPager{
 	
 	private static long SCROLL_DELAY = 3000;
@@ -75,7 +73,7 @@ public class AutoScrollViewPager extends ViewPager{
 				next = 0;
 			}
 			setCurrentItem(next);
-		};
+		}
 	};
 	
 	@Override
