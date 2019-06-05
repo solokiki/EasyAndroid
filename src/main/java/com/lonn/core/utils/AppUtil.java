@@ -14,6 +14,8 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.text.Html;
+import android.text.TextUtils;
 
 public class AppUtil {
 
@@ -171,6 +173,23 @@ public class AppUtil {
         } catch (Exception e) {
             e.printStackTrace();
             return "";
+        }
+    }
+
+    /**
+     * 转化html代码
+     * @param source
+     * @return
+     */
+    public static String fromHtml(String source) {
+        if(TextUtils.isEmpty(source)){
+            return "";
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            return Html.fromHtml(source,Html.FROM_HTML_MODE_COMPACT).toString();
+        } else {
+            return Html.fromHtml(source).toString();
+
         }
     }
 
