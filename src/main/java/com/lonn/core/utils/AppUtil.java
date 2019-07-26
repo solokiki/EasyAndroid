@@ -26,12 +26,15 @@ public class AppUtil {
      */
     public static boolean checkNetworkInfo(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = cm.getActiveNetworkInfo();
-        if (info != null && info.isConnected()) {
-            return true;
-        } else {
-            return false;
+        if(cm != null){
+            NetworkInfo info = cm.getActiveNetworkInfo();
+            if (info != null && info.isConnected()) {
+                return true;
+            }
         }
+
+        return false;
+
 
         // //mobile 3G Data Network
         // State mobile =
