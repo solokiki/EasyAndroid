@@ -5,11 +5,12 @@ import java.util.TimerTask;
 
 import android.content.Context;
 import android.os.Handler;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class AutoScrollViewPager extends ViewPager{
+import androidx.viewpager.widget.ViewPager;
+
+public class AutoScrollViewPager extends ViewPager {
 	
 	private static long SCROLL_DELAY = 3000;
 	private boolean isAutoScroll = false;

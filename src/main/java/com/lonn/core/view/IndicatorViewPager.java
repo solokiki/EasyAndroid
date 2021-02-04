@@ -2,7 +2,6 @@ package com.lonn.core.view;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -11,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.viewpager.widget.ViewPager;
 
 import com.lonn.core.R;
 import com.lonn.core.adapter.BaseBannerAdapter;
@@ -291,7 +292,7 @@ public class IndicatorViewPager extends RelativeLayout {
         }
     }
 
-    private void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
+    private void setOnPageChangeListener(ViewPager.OnPageChangeListener onPageChangeListener) {
         if (viewPager != null && onPageChangeListener != null) {
             viewPager.setOnPageChangeListener(onPageChangeListener);
         }
@@ -301,7 +302,7 @@ public class IndicatorViewPager extends RelativeLayout {
         this.onPagerSelectListener = onPageSelectListener;
     }
 
-    private OnPageChangeListener onPageChangeListener = new OnPageChangeListener() {
+    private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageSelected(int arg0) {
             currentIndex = arg0;
