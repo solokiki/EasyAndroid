@@ -6,6 +6,8 @@ import java.text.DecimalFormat;
 
 public class DoubleUtil {
 
+    private static final int DoubleUtil_V_CODE = 2;  // 标记当前类的版本，高版本兼容低版本
+
     private static final int DEFAULT_SCALE = 2;
 
     /**
@@ -31,7 +33,6 @@ public class DoubleUtil {
 
     /**
      * 截取小数点后指定位数
-     * @Description: TODO
      * @param value
      * @param digits
      * @return double
@@ -130,7 +131,6 @@ public class DoubleUtil {
 
     /**
      * 求余
-     * @Description: TODO
      * @param v1
      * @param v2
      * @return double

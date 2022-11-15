@@ -38,9 +38,10 @@ public class StringMsgAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = ((Activity) context).getLayoutInflater().inflate(R.layout.lonn_adapter_stringmsg, null);
 			holder = new ViewHolder();
-			holder.tv_title = (TextView) convertView.findViewById(R.id.lonn_adapter_stringmsg_tv_title);
-			holder.tv_msg = (TextView) convertView.findViewById(R.id.lonn_adapter_stringmsg_tv_msg);
-			holder.iv_arrow = (ImageView) convertView.findViewById(R.id.lonn_adapter_stringmsg_iv_arrow);
+			holder.iv_icon = convertView.findViewById(R.id.lonn_adapter_stringmsg_iv_icon);
+			holder.tv_title = convertView.findViewById(R.id.lonn_adapter_stringmsg_tv_title);
+			holder.tv_msg = convertView.findViewById(R.id.lonn_adapter_stringmsg_tv_msg);
+			holder.iv_arrow = convertView.findViewById(R.id.lonn_adapter_stringmsg_iv_arrow);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -48,6 +49,13 @@ public class StringMsgAdapter extends BaseAdapter {
 
 		StringMsg sm = list.get(position);
 		if(sm != null){
+			if(sm.getImageRes() > 0){
+				holder.iv_icon.setVisibility(View.VISIBLE);
+				holder.iv_icon.setImageResource(sm.getImageRes());
+			}else{
+				holder.iv_icon.setVisibility(View.GONE);
+			}
+
 			holder.tv_title.setText(sm.getTitle());
 			holder.tv_msg.setText(sm.getMsg());
 			if(sm.isHasArrow()){
@@ -69,6 +77,7 @@ public class StringMsgAdapter extends BaseAdapter {
 	
 
 	public static class ViewHolder {
+		public ImageView iv_icon;
 		public TextView tv_title;
 		public TextView tv_msg;
 		public ImageView iv_arrow;

@@ -1,15 +1,18 @@
 package com.lonn.core.utils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
+import android.Manifest;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.drawable.Drawable;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
@@ -17,8 +20,16 @@ import android.text.Html;
 import android.text.TextUtils;
 
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+
+import com.lonn.core.app.AppActivities;
+import com.tbruyelle.rxpermissions3.Permission;
+
+import java.util.List;
 
 public class AppUtil {
+
+    private static final int AppUtil_V_CODE = 2;  // 标记当前类的版本，高版本兼容低版本
 
     /**
      * 检查手机网络连接
@@ -198,47 +209,49 @@ public class AppUtil {
     }
 
     /**
-     * 拨号
-     *
-     * @param context
-     * @param number
+     * 直接拨号
+     * 已废弃，请使用callPhoneDial()替代
      */
+    @Deprecated
     public static void dial(Context context, String number) {
-        Class<TelephonyManager> c = TelephonyManager.class;
-        Method getITelephonyMethod = null;
-        try {
-            getITelephonyMethod = c.getDeclaredMethod("getITelephony", (Class[]) null);
-            getITelephonyMethod.setAccessible(true);
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+        callPhoneDial(number, context);
+    }
 
-        try {
-            TelephonyManager tManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-            Object iTelephony;
-            iTelephony = (Object) getITelephonyMethod.invoke(tManager, (Object[]) null);
-            Method dial = iTelephony.getClass().getDeclaredMethod("dial", String.class);
-            dial.invoke(iTelephony, number);
-        } catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     *
+     * @param phoneNum 电话号码
+     */
+    public static void callPhoneDial(String phoneNum, Context context) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        context.startActivity(intent);
+    }
+
+
+    /**
+     * 拨打电话（直接拨打电话）
+     *
+     * @param phoneNum 电话号码
+     */
+    public static void callPhone(FragmentActivity activity, String phoneNum) {
+
+        PermissionsUtil.checkPermission(activity, new PermissionsUtil.PermissionListener() {
+            @Override
+            public void onGranted() {
+                Intent intent = new Intent(Intent.ACTION_CALL);
+                Uri data = Uri.parse("tel:" + phoneNum);
+                intent.setData(data);
+                activity.startActivity(intent);
+            }
+
+            @Override
+            public void onDenied(List<Permission> deniedPermission) {
+                PermissionsUtil.showPermissionsDialog(activity, deniedPermission.get(0), false, false);
+            }
+        }, Manifest.permission.CALL_PHONE);
+
     }
 
     /**
@@ -277,13 +290,47 @@ public class AppUtil {
         return true;
     }
 
-    public static final int getColor(Context context, int id) {
+    /**
+     * 获取Color
+     * @param context
+     * @param id
+     * @return
+     */
+    public static int getColor(Context context, int id) {
         final int version = Build.VERSION.SDK_INT;
         if (version >= 23) {
             return ContextCompat.getColor(context, id);
         } else {
             return context.getResources().getColor(id);
         }
+    }
+
+    public static Drawable getDrawable(Context context, int id){
+        return ContextCompat.getDrawable(context, id);
+    }
+
+    /**
+     * 退出APP
+     */
+    public static void exitApp() {
+        try {
+            AppActivities.finishAllActivities();
+            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void copyText(Context context, String text){
+        //获取剪贴版
+        ClipboardManager clipboard = (ClipboardManager)context.getSystemService(Context.CLIPBOARD_SERVICE);
+        //创建ClipData对象
+        //第一个参数只是一个标记，随便传入。
+        //第二个参数是要复制到剪贴版的内容
+        ClipData clip = ClipData.newPlainText("simple text", text);
+        //传入clipdata对象.
+        clipboard.setPrimaryClip(clip);
     }
 
 }

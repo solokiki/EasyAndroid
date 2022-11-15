@@ -5,7 +5,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class SharedPreferencesUtil {
-	
+
+	private static final int SharedPreferencesUtil_V_CODE = 2;  // 标记当前类的版本，高版本兼容低版本
+
 	// 文件名
 	private static final String FILE_NAME = "share_data";
 	

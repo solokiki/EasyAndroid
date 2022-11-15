@@ -6,14 +6,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringUtil {
-	
+
+	private static final int StringUtil_V_CODE = 2;  // 标记当前类的版本，高版本兼容低版本
+
 	/**
 	 * 判断字符串是否为空
-	 * @param content
-	 * @return
+	 * @param content 待判断的字符串
+	 * @return 是否为空
 	 */
 	public static boolean isEmpty(String content){
-		if(content == null || content.length() == 0 || "null".equals(content)){
+		if(content == null || content.length() == 0 || "null".equals(content.toLowerCase())){
 			return true;
 		}else{
 			return false;
@@ -22,9 +24,9 @@ public class StringUtil {
 	
 	/**
 	 * 截取某个字符串前面的字符串
-	 * @param content
-	 * @param tab
-	 * @return
+	 * @param content 待截取的字符串
+	 * @param tab 截取标记
+	 * @return 截取后的字符串
 	 */
 	public static String frontString(String content, String tab){
 		if(content.contains(tab)){
@@ -36,9 +38,9 @@ public class StringUtil {
 	
 	/**
 	 * 截取某个字符串后面的字符串
-	 * @param content
-	 * @param tab
-	 * @return
+	 * @param content 待截取的字符串
+	 * @param tab 截取标记
+	 * @return 截取后的字符串
 	 */
 	public static String rearString(String content, String tab){
 		if(content.contains(tab)){
@@ -51,10 +53,10 @@ public class StringUtil {
 	
 	/**
 	 * 截取某两个字符串中间的字符串
-	 * @param content
-	 * @param startTab
-	 * @param endTab
-	 * @return
+	 * @param content 待截取的字符串
+	 * @param startTab 开始截取标记
+	 * @param endTab 结束截取标记
+	 * @return 截取后的字符串
 	 */
 	public static String middleString(String content, String startTab, String endTab){
 		return content.substring(content.indexOf(startTab) + 1, content.indexOf(endTab));
@@ -119,10 +121,10 @@ public class StringUtil {
 	// IP4地址
     public static final String REGEX_IP4 = "((([0-1]?[0-9]?[0-9])|([2][0-4][0-9])|([2][5][0-5]))\\.){3}(([0-1]?[0-9]?[0-9])|([2][0-4][0-9])|([2][5][0-5]))";
 	/**
-	 * 检测匹配
-	 * @param regex
-	 * @param str
-	 * @return
+	 * 正则表达式检测匹配
+	 * @param regex 正则表达式
+	 * @param str 待匹配原文
+	 * @return 是否符合正则
 	 */
 	public static boolean matches(String regex, String str){
 		return Pattern.matches(regex, str);

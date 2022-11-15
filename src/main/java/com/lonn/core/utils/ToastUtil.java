@@ -13,6 +13,11 @@ public class ToastUtil {
     private static int gravity = Gravity.BOTTOM;
     private static int textSize = 14;
 
+    private ToastUtil(Bulider bulider){
+        gravity = bulider.gravity;
+        textSize = bulider.textSize;
+    }
+
     public static void shortMsg(Context context, String content){
         toast = Toast.makeText(context, content, Toast.LENGTH_SHORT);
         setStyle(toast);
@@ -52,6 +57,30 @@ public class ToastUtil {
         LinearLayout linearLayout = (LinearLayout) toast.getView();
         TextView messageTextView = (TextView) linearLayout.getChildAt(0);
         messageTextView.setTextSize(textSize);
+    }
+
+    public static class Bulider {
+        private int gravity = Gravity.BOTTOM;
+        private int textSize = 14;
+
+        public Bulider(){
+
+        }
+
+        public Bulider gravity(int gravity){
+            this.gravity = gravity;
+            return this;
+        }
+
+        public Bulider textSize(int textSize){
+            this.textSize = textSize;
+            return this;
+        }
+
+        public ToastUtil bulid(){
+            return new ToastUtil(this);
+        }
+
     }
 
 }

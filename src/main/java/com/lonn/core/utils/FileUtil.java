@@ -4,6 +4,8 @@ import java.io.File;
 
 public class FileUtil {
 
+	private static final int FileUtil_V_CODE = 2;  // 标记当前类的版本，高版本兼容低版本
+
 	/**
 	 * 计算指定目录大小
 	 * */

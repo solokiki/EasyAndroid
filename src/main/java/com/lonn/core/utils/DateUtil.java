@@ -10,7 +10,9 @@ import java.util.Date;
  * 2014-1-2
  */
 public class DateUtil {
-	
+
+	private static final int DateUtil_V_CODE = 2;  // 标记当前类的版本，高版本兼容低版本
+
 	/**
 	 * 获取SimpleDateFormat
 	 * @param parttern 日期格式
@@ -151,11 +153,11 @@ public class DateUtil {
 	/**
 	 * 增加日期的月份。失败返回null。
 	 * @param date 日期
-	 * @param yearAmount 增加数量。可为负数
+	 * @param monthAmount 增加数量。可为负数
 	 * @return 增加月份后的日期
 	 */
-	public static Date addMonth(Date date, int yearAmount) {
-		return addInteger(date, Calendar.MONTH, yearAmount);
+	public static Date addMonth(Date date, int monthAmount) {
+		return addInteger(date, Calendar.MONTH, monthAmount);
 	}
 
 	/**
@@ -182,8 +184,8 @@ public class DateUtil {
 	 * @param date 日期
 	 * @return 增加分钟后的日期
 	 */
-	public static Date addMinute(Date date, int hourAmount) {
-		return addInteger(date, Calendar.MINUTE, hourAmount);
+	public static Date addMinute(Date date, int minuteAmount) {
+		return addInteger(date, Calendar.MINUTE, minuteAmount);
 	}
 	
 	/**
@@ -191,8 +193,8 @@ public class DateUtil {
 	 * @param date 日期
 	 * @return 增加秒钟后的日期
 	 */
-	public static Date addSecond(Date date, int hourAmount) {
-		return addInteger(date, Calendar.SECOND, hourAmount);
+	public static Date addSecond(Date date, int secondAmount) {
+		return addInteger(date, Calendar.SECOND, secondAmount);
 	}
 
 	/**

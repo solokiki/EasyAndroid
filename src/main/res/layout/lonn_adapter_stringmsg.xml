@@ -11,11 +11,20 @@
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="10" >
+
+		<ImageView
+			android:id="@+id/lonn_adapter_stringmsg_iv_icon"
+			android:layout_width="30dp"
+			android:layout_height="30dp"
+			android:layout_centerVertical="true"
+			android:layout_marginRight="@dimen/padding_verySmall"
+			android:scaleType="center"/>
+
 		<TextView
 			android:id="@+id/lonn_adapter_stringmsg_tv_title"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignParentLeft="true"
+			android:layout_toRightOf="@+id/lonn_adapter_stringmsg_iv_icon"
 			android:layout_centerVertical="true"
 			android:singleLine="true"
 			android:textSize="18sp"
